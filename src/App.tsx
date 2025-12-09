@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import {TaskList} from './Components/TaskList/TaskList'
 import type { Task, TaskStatus } from './types';
+import { TaskFilter } from './Components/TaskFilter/TaskFilter';
 
 
 
 function App() {
+  const [status , setStatus ]=useState<string>('All')
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: '1',
@@ -33,16 +35,26 @@ function App() {
       )
     )
   }
+  // handle priority
+  const handelPriority = ({status}:{status? : TaskStatus})=>{
+    setStatus(status|| 'All')
+  }
 // delete
 const handleDelete = (taskId : string)=>{
   setTasks((prevTask)=>prevTask.filter(task => task.id !== taskId))
 }
+
+const filteredTasks = status === 'All' ? tasks : tasks.filter((task) => task.status === status);
+
   return (
     <>
     <h3>IM here</h3>
+    <div>
+      <TaskFilter onFilterChange={handelPriority}/>
+    </div>
      <div>
        <TaskList 
-        tasks={tasks}
+        tasks={filteredTasks}
         onStatusChange={handelStatus}
         onDelete={handleDelete}
        />

@@ -1,33 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import {TaskList} from './Components/TaskList/TaskList'
+import type { Task, TaskStatus } from './types';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [tasks, setTasks] = useState<Task[]>([
+    {
+      id: '1',
+      title: 'Task 1',
+      description: 'Description for Task 1',
+      status: 'pending',
+      priority: 'medium',
+      dueDate: '2025-12-10',
+    },
+    {
+      id: '2',
+      title: 'Task 2',
+      description: 'Description for Task 2',
+      status: 'in-progress',
+      priority: 'high',
+      dueDate: '2025-12-11',
+    },
+  ]);
+ 
+  // handle status
+  const handelStatus = (taskId:string, newStatus: TaskStatus)=>{
+    setTasks((prevTask)=>
+      prevTask.map(task =>
+        task.id === taskId ? {...task , status: newStatus} : task
+      )
+    )
+  }
+// delete
+const handleDelete = (taskId : string)=>{
+  setTasks((prevTask)=>prevTask.filter(task => task.id !== taskId))
+}
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h3>IM here</h3>
+     <div>
+       <TaskList 
+        tasks={tasks}
+        onStatusChange={handelStatus}
+        onDelete={handleDelete}
+       />
+     </div>
     </>
   )
 }

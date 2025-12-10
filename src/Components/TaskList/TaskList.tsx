@@ -13,6 +13,7 @@ export const TaskList: React.FC<TaskListProps> = ({
             {tasks.map((object) => (
                 <div key={object.id}>
                     <p>{object.title}</p>
+                    <p>{object.priority}</p>
                     <select
                         defaultValue={object.status} 
                         onChange={(e) => onStatusChange && onStatusChange(object.id, e.target.value as TaskStatus)} 

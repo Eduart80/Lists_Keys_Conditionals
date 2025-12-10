@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import './App.css'
 import {TaskList} from './Components/TaskList/TaskList'
 import type { Task, TaskStatus } from './types';
@@ -7,7 +7,9 @@ import { TaskFilter } from './Components/TaskFilter/TaskFilter';
 
 
 function App() {
-  const [status , setStatus ]=useState<string>('All')
+
+  const [filters, setFilters ]=useState<{status?: TaskStatus; priority?: 'low' | 'medium' | 'high'}>({})
+ 
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: '1',
@@ -25,6 +27,14 @@ function App() {
       priority: 'high',
       dueDate: '2025-12-11',
     },
+    {
+      id: '3',
+      title: 'Task 3',
+      description: 'Description for Task 3',
+      status: 'completed',
+      priority: 'low',
+      dueDate: '2025-12-13',
+    },
   ]);
  
   // handle status
@@ -35,22 +45,30 @@ function App() {
       )
     )
   }
-  // handle priority
-  const handelPriority = ({status}:{status? : TaskStatus})=>{
-    setStatus(status|| 'All')
-  }
+  // filters
+  const handleFilterChange = (newFilters: { status?: TaskStatus; priority?: 'low' | 'medium' | 'high' }) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+  }));
+};
 // delete
 const handleDelete = (taskId : string)=>{
   setTasks((prevTask)=>prevTask.filter(task => task.id !== taskId))
 }
 
-const filteredTasks = status === 'All' ? tasks : tasks.filter((task) => task.status === status);
+const filteredTasks = tasks.filter((task) => {
+  const matchesStatus = !filters.status || task.status === filters.status;
+  const matchesPriority = !filters.priority || task.priority === filters.priority;
+  return matchesStatus && matchesPriority;
+});
+
 
   return (
     <>
     <h3>IM here</h3>
     <div>
-      <TaskFilter onFilterChange={handelPriority}/>
+      <TaskFilter onFilterChange={handleFilterChange}/>
     </div>
      <div>
        <TaskList 

@@ -3,6 +3,7 @@ import './App.css'
 import {TaskList} from './Components/TaskList/TaskList'
 import type { Task, TaskStatus } from './types';
 import { TaskFilter } from './Components/TaskFilter/TaskFilter';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -65,8 +66,8 @@ const filteredTasks = tasks.filter((task) => {
 
 
   return (
-    <>
-    <h3>IM here</h3>
+    <div className='container'>
+    <h3>My List</h3>
     <div>
       <TaskFilter onFilterChange={handleFilterChange}/>
     </div>
@@ -77,7 +78,7 @@ const filteredTasks = tasks.filter((task) => {
         onDelete={handleDelete}
        />
      </div>
-    </>
+    </div>
   )
 }
 

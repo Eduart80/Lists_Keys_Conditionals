@@ -7,14 +7,43 @@ export const TaskList: React.FC<TaskListProps> = ({
     onDelete
 }) => {
     const statuses: TaskStatus[] = ['pending', 'in-progress', 'completed']
+    const getPriorityColor=(prop:string)=>{
+        switch (prop){
+            case 'low': 
+            return 'success';
+            case 'medium': 
+            return 'warning';
+            case 'high': 
+            return 'danger';
+            default :
+                return 'secondary'; 
+        }
+    }
 
     return (
-        <>
+// Show different styles based on task status and priority.
+// Implement hover and active states.
+// Add visual indicators for task properties.
+        <div className='container mt-4'>
+        <div className="row">
+            <div className='w-50'>
+            
             {tasks.map((object) => (
-                <div key={object.id}>
-                    <p>{object.title}</p>
-                    <p>{object.priority}</p>
+            <div key={object.id} className='card mb-3'>
+                <div className='card-body'>
+                    <h5 className='card-title'>{object.title}</h5>
+                    <p className='card-text'>{object.description}
+                    <br/>
+                    <span className={`text-${getPriorityColor(object.priority)}`}>
+                        Priority: {object.priority}
+                    </span>
+                    <br/>
+                    </p>
+                </div>
+                   
+                <div className='d-flex justify-content-end align-items-center'>
                     <select
+                        className='form-select w-25 me-2'
                         defaultValue={object.status} 
                         onChange={(e) => onStatusChange && onStatusChange(object.id, e.target.value as TaskStatus)} 
                     >
@@ -24,9 +53,12 @@ export const TaskList: React.FC<TaskListProps> = ({
                             </option>
                         ))}
                     </select>
-                    <button onClick={() => onDelete(object.id)}>Delete</button>
+                    <button type="button" className="btn btn-danger" onClick={() => onDelete(object.id)}>Delete</button>
                 </div>
+            </div>
             ))}
-        </>
+            </div>
+            </div>
+        </div>
     )
 }

@@ -35,7 +35,7 @@ export const TaskList: React.FC<TaskListProps> = ({
                   {object.description}
                   <br />
                   <span className={`text-${getPriorityColor(object.priority)}`}>
-                    Priority: {object.priority}
+                    Priority: {object.priority}, Due: {object.dueDate}
                   </span>
                   <br />
                 </p>

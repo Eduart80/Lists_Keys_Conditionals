@@ -4,14 +4,15 @@ import type { TaskStatus, TaskFilterProps } from '../../types';
 
 export const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange }) => {
     return(
-    <div className="form-group">
-        <div className="row">
-            <div className='w-25'>
+    <div className="form-group" style={{ backgroundColor: '#252525', color: "#fff" }} >
+        <div className="row justify-content-center">
+            <div className='col-3'>
                 <label htmlFor="prioritySelect">Status</label>
            
                 <select
                 id="prioritySelect" 
                 className="form-control"
+                style={{ backgroundColor: "#232131ff", color: "#fff" }}
                 onChange={(e) => {
                     const value = e.target.value;
                     onFilterChange({
@@ -25,11 +26,12 @@ export const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange }) => {
                 </select>
                
             </div>
-            <div className='w-25'>
+            <div className='col-3'>
                 <label htmlFor="prioritySelect">Priotity</label>
                 <select 
                  id="prioritySelect" 
                 className="form-control"
+                style={{ backgroundColor: "#232131ff", color: "#fff" }}
                 onChange={(e) => {
                     const value = e.target.value;
                     onFilterChange({

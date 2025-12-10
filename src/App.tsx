@@ -66,12 +66,12 @@ const filteredTasks = tasks.filter((task) => {
 
 
   return (
-    <div className='container'>
-    <h3>My List</h3>
+    <div className='#' style={{ backgroundColor: '#252525', color: "#fff" }}>
+    <h3 style={{ textAlign: 'center', margin:'10px 5px' }}>My List</h3>
     <div>
       <TaskFilter onFilterChange={handleFilterChange}/>
     </div>
-     <div>
+     <div className='col-sm-12 col-md-12'>
        <TaskList 
         tasks={filteredTasks}
         onStatusChange={handelStatus}
